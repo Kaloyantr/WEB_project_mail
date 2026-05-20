@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mail System | Assignments</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="dashboard.html">Mail System</a>
+      <nav class="main-nav"></nav>
+    </div>
+  </header>
+  <main class="container page-shell">
+    <section class="split-layout">
+      <div class="panel">
+        <h1>Review Assignments</h1>
+        <p id="assignments-notice" class="form-message" hidden></p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>ID</th><th>Topic</th><th>Reviewer</th><th>Box</th><th>Deadline</th><th>Actions</th></tr></thead>
+            <tbody id="assignments-table"></tbody>
+          </table>
+        </div>
+      </div>
+      <aside class="panel">
+        <h2>Assign Reviewer</h2>
+        <form class="compact-form" id="assignment-form">
+          <label><span>Topic</span><select name="topic_id" id="assignment-topic-select"></select></label>
+          <label><span>Reviewer</span><select name="reviewer_user_id" id="assignment-user-select"></select></label>
+          <label><span>Deadline</span><input type="datetime-local" name="deadline" required></label>
+          <button class="button primary" type="submit">Assign</button>
+        </form>
+      </aside>
+    </section>
+  </main>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/assignments.js"></script>
+</body>
+</html>

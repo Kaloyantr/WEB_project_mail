@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mail System | Import Export</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header"><div class="container header-inner"><a class="brand" href="dashboard.html">Mail System</a><nav class="main-nav"></nav></div></header>
+  <main class="container page-shell">
+    <section class="split-layout">
+      <div class="panel">
+        <h1>Import</h1>
+        <p id="import-notice" class="form-message" hidden></p>
+        <form class="compact-form" id="import-form" enctype="multipart/form-data">
+          <label><span>Import type</span><select name="import_type"><option value="users">users</option><option value="groups">groups</option><option value="topics">topics</option><option value="assignments">assignments</option><option value="anonymous_boxes">anonymous_boxes</option></select></label>
+          <label><span>CSV file</span><input name="file" type="file" accept=".csv,text/csv" required></label>
+          <button class="button primary" type="submit">Import</button>
+        </form>
+        <div id="import-errors"></div>
+      </div>
+      <aside class="panel">
+        <h1>Export</h1>
+        <form class="compact-form" id="export-form">
+          <label><span>Export type</span><select name="type"><option value="users">users</option><option value="groups">groups</option><option value="anonymous_boxes">anonymous_boxes</option><option value="assignments">assignments</option><option value="topics">topics</option><option value="reviews">reviews</option><option value="conversations_by_topic">conversations_by_topic</option></select></label>
+          <button class="button primary" type="submit">Export CSV</button>
+        </form>
+      </aside>
+    </section>
+  </main>
+  <script src="../js/api.js"></script><script src="../js/ui.js"></script><script src="../js/navigation.js"></script><script src="../js/import_export.js"></script>
+</body>
+</html>

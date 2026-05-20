@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mail System | Messages</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="dashboard.html">Mail System</a>
+      <nav class="main-nav"></nav>
+    </div>
+  </header>
+  <main class="container page-shell">
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <h1>Messages</h1>
+          <p class="section-text">Inbox and sent messages.</p>
+        </div>
+        <a class="button primary" href="compose.html">Compose</a>
+      </div>
+      <div class="tabs">
+        <button class="button primary" type="button" data-folder="inbox">Inbox</button>
+        <button class="button" type="button" data-folder="sent">Sent</button>
+      </div>
+      <p id="messages-notice" class="form-message" hidden></p>
+      <div class="table-wrap">
+        <table>
+          <thead id="messages-head"></thead>
+          <tbody id="messages-table"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/messages.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mail System | Compose</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="dashboard.html">Mail System</a>
+      <nav class="main-nav"></nav>
+    </div>
+  </header>
+  <main class="container page-shell">
+    <section class="panel">
+      <h1>Compose</h1>
+      <p id="compose-notice" class="form-message" hidden></p>
+      <form class="form-grid" id="compose-form">
+        <label>
+          <span>Users</span>
+          <select name="recipient_user_ids" id="compose-users" multiple size="6"></select>
+        </label>
+        <label>
+          <span>Groups</span>
+          <select name="recipient_group_ids" id="compose-groups" multiple size="6"></select>
+        </label>
+        <label>
+          <span>Anonymous boxes</span>
+          <select name="recipient_box_ids" id="compose-boxes" multiple size="6"></select>
+        </label>
+        <label>
+          <span>Send from anonymous box</span>
+          <select name="sender_box_id" id="compose-sender-box"><option value="">My user account</option></select>
+        </label>
+        <label>
+          <span>Topic</span>
+          <select name="topic_id" id="compose-topic"><option value="">No topic</option></select>
+        </label>
+        <label>
+          <span>Message type</span>
+          <select name="message_type">
+            <option value="normal">normal</option>
+            <option value="review">review</option>
+          </select>
+        </label>
+        <label class="full-width"><span>Subject</span><input name="subject" required></label>
+        <label class="full-width"><span>Body</span><textarea name="body" rows="10" required></textarea></label>
+        <button class="button primary" type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/compose.js"></script>
+</body>
+</html>

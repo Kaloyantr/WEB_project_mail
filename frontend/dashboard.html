@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mail System | Dashboard</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body id="dashboard-page">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="dashboard.html">Mail System</a>
+      <nav class="main-nav"></nav>
+    </div>
+  </header>
+  <main class="container page-shell">
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <h1>Dashboard</h1>
+          <p class="section-text">Quick overview of your mailbox workspace.</p>
+        </div>
+        <div class="user-badge">
+          <strong id="current-user-name">Loading...</strong>
+          <span id="current-user-role">...</span>
+        </div>
+      </div>
+      <p id="dashboard-message" class="form-message" hidden></p>
+    </section>
+    <section class="stats-grid">
+      <article class="panel stat-card"><h2>Messages</h2><strong>Inbox</strong></article>
+      <article class="panel stat-card"><h2>Topics</h2><strong>Refs</strong></article>
+      <article class="panel stat-card"><h2>Reviews</h2><strong>Open</strong></article>
+      <article class="panel stat-card"><h2>Rules</h2><strong>Active</strong></article>
+    </section>
+  </main>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/auth.js"></script>
+</body>
+</html>

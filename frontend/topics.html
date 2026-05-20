@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mail System | Topics</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header"><div class="container header-inner"><a class="brand" href="dashboard.html">Mail System</a><nav class="main-nav"></nav></div></header>
+  <main class="container page-shell">
+    <section class="split-layout">
+      <div class="panel">
+        <h1>Topics</h1>
+        <p id="topics-notice" class="form-message" hidden></p>
+        <div class="table-wrap"><table><thead><tr><th>ID</th><th>Title</th><th>Author</th><th>Created</th><th>Actions</th></tr></thead><tbody id="topics-table"></tbody></table></div>
+      </div>
+      <aside class="panel">
+        <h2 id="topic-form-title">Create Topic</h2>
+        <form class="compact-form" id="topic-form">
+          <input type="hidden" name="id">
+          <label><span>Title</span><input name="title" required></label>
+          <label><span>Description</span><textarea name="description" rows="5"></textarea></label>
+          <label id="topic-author-field"><span>Author</span><select name="author_id" id="topic-author-select"></select></label>
+          <button class="button primary" type="submit">Save</button>
+          <button class="button" type="button" id="topic-form-reset">Clear</button>
+        </form>
+      </aside>
+    </section>
+  </main>
+  <script src="../js/api.js"></script><script src="../js/ui.js"></script><script src="../js/navigation.js"></script><script src="../js/topics.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mail System | Message</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="dashboard.html">Mail System</a>
+      <nav class="main-nav"></nav>
+    </div>
+  </header>
+  <main class="container page-shell">
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <h1 id="message-subject">Message</h1>
+          <p class="section-text" id="message-meta"></p>
+        </div>
+        <a class="button" href="messages.html">Back</a>
+      </div>
+      <p id="message-notice" class="form-message" hidden></p>
+      <div id="conversation-thread" class="message-thread"></div>
+      <div class="toolbar">
+        <button class="button" type="button" id="flag-violation-button" hidden>Маркирай нарушение на анонимността</button>
+      </div>
+      <form class="compact-form" id="reply-form">
+        <h2>Reply</h2>
+        <label><span>Reply as anonymous box</span><select name="sender_box_id" id="reply-box-select"><option value="">My user account</option></select></label>
+        <label><span>Body</span><textarea name="body" rows="6" required></textarea></label>
+        <button class="button primary" type="submit">Send Reply</button>
+      </form>
+    </section>
+  </main>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/messages.js"></script>
+</body>
+</html>

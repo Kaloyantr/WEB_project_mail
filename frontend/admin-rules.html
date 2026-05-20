@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mail System | Admin Rules</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header"><div class="container header-inner"><a class="brand" href="dashboard.html">Mail System</a><nav class="main-nav"></nav></div></header>
+  <main class="container page-shell">
+    <section class="split-layout">
+      <div class="panel">
+        <h1>Rules</h1>
+        <p id="rules-notice" class="form-message" hidden></p>
+        <div class="table-wrap"><table><thead><tr><th>ID</th><th>Title</th><th>Type</th><th>Active</th><th>Dates</th><th>Actions</th></tr></thead><tbody id="rules-table"></tbody></table></div>
+      </div>
+      <aside class="panel">
+        <h2 id="rule-form-title">Create Rule</h2>
+        <form class="compact-form" id="rule-form">
+          <input type="hidden" name="id">
+          <label><span>Title</span><input name="title" required></label>
+          <label><span>Description</span><textarea name="description" rows="5"></textarea></label>
+          <label><span>Type</span><select name="rule_type"><option value="general">general</option><option value="anonymity">anonymity</option><option value="review_deadline">review_deadline</option></select></label>
+          <label><span>Start date</span><input name="start_date" type="date"></label>
+          <label><span>End date</span><input name="end_date" type="date"></label>
+          <label><span><input name="is_active" type="checkbox" checked> Active</span></label>
+          <button class="button primary" type="submit">Save</button>
+          <button class="button" type="button" id="rule-form-reset">Clear</button>
+        </form>
+      </aside>
+    </section>
+  </main>
+  <script src="../js/api.js"></script><script src="../js/ui.js"></script><script src="../js/navigation.js"></script><script src="../js/rules.js"></script>
+</body>
+</html>

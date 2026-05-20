@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mail System | Moderation</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header"><div class="container header-inner"><a class="brand" href="dashboard.html">Mail System</a><nav class="main-nav"></nav></div></header>
+  <main class="container page-shell">
+    <section class="panel">
+      <div class="section-head"><div><h1>Moderation</h1><p class="section-text">Pending messages and anonymity violation reports.</p></div><button class="button primary" id="bulk-approve-button" type="button">Approve selected</button></div>
+      <p id="moderation-notice" class="form-message" hidden></p>
+      <div class="table-wrap"><table><thead><tr><th></th><th>Message</th><th>Sender</th><th>Status</th><th>Violation</th><th>Note</th><th>Actions</th></tr></thead><tbody id="moderation-table"></tbody></table></div>
+    </section>
+  </main>
+  <script src="../js/api.js"></script><script src="../js/ui.js"></script><script src="../js/navigation.js"></script><script src="../js/moderation.js"></script>
+</body>
+</html>
