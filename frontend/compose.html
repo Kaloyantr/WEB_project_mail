@@ -18,25 +18,31 @@
       <h1>Compose</h1>
       <p id="compose-notice" class="form-message" hidden></p>
       <form class="form-grid" id="compose-form">
-        <label>
+        <label id="compose-users-field">
           <span>Users</span>
           <select name="recipient_user_ids" id="compose-users" multiple size="6"></select>
         </label>
-        <label>
+        <label id="compose-groups-field">
           <span>Groups</span>
           <select name="recipient_group_ids" id="compose-groups" multiple size="6"></select>
         </label>
-        <label>
+        <label id="compose-boxes-field">
           <span>Anonymous boxes</span>
           <select name="recipient_box_ids" id="compose-boxes" multiple size="6"></select>
         </label>
-        <label>
+        <label id="compose-sender-box-field">
           <span>Send from anonymous box</span>
           <select name="sender_box_id" id="compose-sender-box"><option value="">My user account</option></select>
         </label>
-        <label>
+        <label id="compose-topic-field">
           <span>Topic</span>
           <select name="topic_id" id="compose-topic"><option value="">No topic</option></select>
+        </label>
+        <label id="compose-assignment-field" hidden>
+          <span>My review assignment</span>
+          <select name="review_assignment_id" id="compose-assignment">
+            <option value="">Select assignment</option>
+          </select>
         </label>
         <label>
           <span>Message type</span>
@@ -45,6 +51,9 @@
             <option value="review">review</option>
           </select>
         </label>
+        <p id="compose-review-help" class="section-text full-width" hidden>
+          Review mode uses one of your active reviewer assignments and sends the message for moderation.
+        </p>
         <label class="full-width"><span>Subject</span><input name="subject" required></label>
         <label class="full-width"><span>Body</span><textarea name="body" rows="10" required></textarea></label>
         <button class="button primary" type="submit">Send</button>

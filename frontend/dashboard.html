@@ -28,10 +28,26 @@
       <p id="dashboard-message" class="form-message" hidden></p>
     </section>
     <section class="stats-grid">
-      <article class="panel stat-card"><h2>Messages</h2><strong>Inbox</strong></article>
-      <article class="panel stat-card"><h2>Topics</h2><strong>Refs</strong></article>
-      <article class="panel stat-card"><h2>Reviews</h2><strong>Open</strong></article>
-      <article class="panel stat-card"><h2>Rules</h2><strong>Active</strong></article>
+      <article class="panel stat-card">
+        <h2>Messages</h2>
+        <strong id="dashboard-messages-count">...</strong>
+        <span class="muted">Inbox items</span>
+      </article>
+      <article class="panel stat-card">
+        <h2>Topics</h2>
+        <strong id="dashboard-topics-count">...</strong>
+        <span class="muted">Visible topics</span>
+      </article>
+      <article class="panel stat-card">
+        <h2>Reviews</h2>
+        <strong id="dashboard-reviews-count">...</strong>
+        <span class="muted">My assignments</span>
+      </article>
+      <article class="panel stat-card">
+        <h2>Rules</h2>
+        <strong id="dashboard-rules-count">...</strong>
+        <span class="muted">Available rules</span>
+      </article>
     </section>
   </main>
   <script src="../js/api.js"></script>

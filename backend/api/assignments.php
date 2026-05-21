@@ -23,17 +23,27 @@ function assignmentQuery(): string
 if ($method === 'GET') {
     $user = requireLogin();
     $topicId = intValue($_GET['topic_id'] ?? 0);
+    $mine = (string) ($_GET['mine'] ?? '') === '1';
 
     if ($topicId > 0) {
         if (!userCanAccessTopic($db, $user, $topicId)) {
             jsonResponse(['success' => false, 'message' => 'Forbidden.'], 403);
         }
 
-        $stmt = $db->prepare(assignmentQuery() . ' WHERE ra.topic_id = :topic_id ORDER BY ra.created_at ASC');
-        $stmt->execute(['topic_id' => $topicId]);
+        $sql = assignmentQuery() . ' WHERE ra.topic_id = :topic_id';
+        $params = ['topic_id' => $topicId];
+
+        if ($mine) {
+            $sql .= ' AND ra.reviewer_user_id = :user_id';
+            $params['user_id'] = (int) $user['id'];
+        }
+
+        $sql .= ' ORDER BY ra.created_at ASC';
+        $stmt = $db->prepare($sql);
+        $stmt->execute($params);
         $rows = $stmt->fetchAll();
 
-        if (!isPrivileged($user)) {
+        if ($mine || !isPrivileged($user)) {
             $rows = array_map(static function (array $row): array {
                 return [
                     'id' => (int) $row['id'],
@@ -50,7 +60,10 @@ if ($method === 'GET') {
         jsonResponse(['success' => true, 'items' => $rows]);
     }
 
-    if (isPrivileged($user)) {
+    if ($mine) {
+        $stmt = $db->prepare(assignmentQuery() . ' WHERE ra.reviewer_user_id = :user_id ORDER BY ra.deadline ASC');
+        $stmt->execute(['user_id' => (int) $user['id']]);
+    } elseif (isPrivileged($user)) {
         $stmt = $db->query(assignmentQuery() . ' ORDER BY ra.deadline ASC');
     } else {
         $stmt = $db->prepare(assignmentQuery() . ' WHERE ra.reviewer_user_id = :user_id ORDER BY ra.deadline ASC');
@@ -134,14 +147,39 @@ if ($method === 'DELETE') {
     $id = getRequestId($input);
     requirePositiveId($id);
 
-    $stmt = $db->prepare('SELECT id FROM review_assignments WHERE id = :id');
+    $stmt = $db->prepare('SELECT id, anonymous_box_id FROM review_assignments WHERE id = :id');
     $stmt->execute(['id' => $id]);
+    $assignment = $stmt->fetch();
 
-    if (!$stmt->fetch()) {
+    if (!$assignment) {
         jsonResponse(['success' => false, 'message' => 'Assignment not found.'], 404);
     }
 
-    $db->prepare('DELETE FROM review_assignments WHERE id = :id')->execute(['id' => $id]);
+    $boxId = (int) $assignment['anonymous_box_id'];
+
+    $db->beginTransaction();
+    try {
+        $db->prepare('DELETE FROM review_assignments WHERE id = :id')->execute(['id' => $id]);
+
+        $usageStmt = $db->prepare(
+            'SELECT
+                (SELECT COUNT(*) FROM review_assignments WHERE anonymous_box_id = :box_id) +
+                (SELECT COUNT(*) FROM messages WHERE sender_box_id = :box_id) +
+                (SELECT COUNT(*) FROM message_recipients WHERE recipient_box_id = :box_id) AS total'
+        );
+        $usageStmt->execute(['box_id' => $boxId]);
+        $usage = (int) ($usageStmt->fetch()['total'] ?? 0);
+
+        if ($usage === 0) {
+            $db->prepare('DELETE FROM anonymous_boxes WHERE id = :id')->execute(['id' => $boxId]);
+        }
+
+        $db->commit();
+    } catch (Throwable $exception) {
+        $db->rollBack();
+        jsonResponse(['success' => false, 'message' => 'Could not delete assignment.'], 500);
+    }
+
     logAction((int) $currentUser['id'], 'delete_assignment', ['assignment_id' => $id]);
     jsonResponse(['success' => true]);
 }
