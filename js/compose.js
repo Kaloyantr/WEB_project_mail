@@ -24,14 +24,19 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("compose-topic").innerHTML = '<option value="">No topic</option>' + optionList(topics.items || [], "title");
 
     reviewAssignments = assignments.items || [];
-    document.getElementById("compose-assignment").innerHTML = [
-      '<option value="">Select assignment</option>',
-      ...reviewAssignments.map((assignment) => `
-        <option value="${escapeHtml(assignment.id)}">
-          ${escapeHtml(assignment.topic_title)} | ${escapeHtml(assignment.anonymous_box_name)} | ${escapeHtml(assignment.deadline)}
-        </option>
-      `)
-    ].join("");
+    const assignmentSelect = document.getElementById("compose-assignment");
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    defaultOption.textContent = "Select assignment";
+
+    assignmentSelect.replaceChildren(defaultOption);
+
+    reviewAssignments.forEach((assignment) => {
+      const option = document.createElement("option");
+      option.value = String(assignment.id);
+      option.textContent = `${assignment.topic_title} | ${assignment.anonymous_box_name} | ${assignment.deadline}`;
+      assignmentSelect.appendChild(option);
+    });
   }
 
   function selectedValues(select) {
@@ -48,12 +53,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function syncAssignmentSelection() {
     const assignmentId = Number(form.review_assignment_id.value);
-    const assignment = reviewAssignments.find((item) => Number(item.id) === assignmentId);
+    const assignment = reviewAssignments.find((item) => Number(item.id) === assignmentId) || null;
 
     if (!assignment) {
       form.sender_box_id.value = "";
       form.topic_id.value = "";
-      return;
+      return null;
     }
 
     form.sender_box_id.value = String(assignment.anonymous_box_id);
@@ -62,6 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!form.subject.value.trim() || form.subject.value.startsWith("Review: ")) {
       form.subject.value = `Review: ${assignment.topic_title}`;
     }
+
+    return assignment;
   }
 
   function updateFormMode() {
@@ -71,10 +78,14 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleField("compose-users-field", isReview);
     toggleField("compose-groups-field", isReview);
     toggleField("compose-boxes-field", isReview);
+    toggleField("compose-sender-box-field", isReview);
+    toggleField("compose-topic-field", isReview);
     toggleField("compose-assignment-field", !isReview);
     toggleField("compose-review-help", !isReview);
 
     form.review_assignment_id.disabled = !isReview;
+    form.sender_box_id.disabled = isReview;
+    form.topic_id.disabled = isReview;
 
     if (isReview) {
       if (!hasAssignments) {
@@ -104,12 +115,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const payload = {
         subject: data.subject,
         body: data.body,
-        message_type: data.message_type
+        message_type: data.message_type,
+        sender_box_id: null,
+        topic_id: null
       };
 
       if (isReview) {
-        payload.sender_box_id = data.sender_box_id ? Number(data.sender_box_id) : null;
-        payload.topic_id = data.topic_id ? Number(data.topic_id) : null;
+        const assignmentId = Number(data.review_assignment_id);
+        const assignment = reviewAssignments.find((item) => Number(item.id) === assignmentId);
+
+        if (!assignment) {
+          showNotice("#compose-notice", "Selected review assignment is invalid.", "error");
+          return;
+        }
+
+        payload.sender_box_id = Number(assignment.anonymous_box_id);
+        payload.topic_id = Number(assignment.topic_id);
       } else {
         payload.recipient_user_ids = selectedValues(form.recipient_user_ids);
         payload.recipient_group_ids = selectedValues(form.recipient_group_ids);
