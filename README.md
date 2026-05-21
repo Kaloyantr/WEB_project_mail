@@ -27,7 +27,7 @@
 
 - PHP 8+
 - XAMPP + MariaDB/MySQL
-- PDO MySQL (`pdo_mysql`)
+- PDO MySQL (`pdo_mysql`)git 
 - HTML
 - CSS
 - Vanilla JavaScript
